@@ -44,6 +44,7 @@
                             on-click="[[toggleDrawer]]"
                             selection="{{selection.path}}">
         </oj-navigation-list>
+        <img src="css/images/logo.png" width="300" height="60" />
       </div>
       <div id="pageContent" class="oj-web-applayout-page">
         <!--
@@ -63,7 +64,7 @@
             </div>
             <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
               <!-- <span role="img" class="oj-icon demo-oracle-icon" title="Oracle Logo" alt="Oracle Logo"></span> -->
-              <img src="css/images/logo.png" width="400" height="70" />
+              <img src="css/images/logo.png" width="300" height="60" class="oj-sm-only-hide"/>
               <h1 class="oj-sm-only-hide oj-web-applayout-header-title" title="Application Name"><oj-bind-text value="[[appName]]"></oj-bind-text></h1>
             </div>
             <div class="oj-flex-bar-end">
@@ -73,9 +74,9 @@
                   <span><oj-bind-text value="[[userLogin]]"></oj-bind-text></span>
                   <span slot="endIcon" :class="[[{'oj-icon demo-appheader-avatar': smScreen(), 'oj-component-icon oj-button-menu-dropdown-icon': !smScreen()}]]"></span>
                   <oj-menu id="menu1" slot="menu">
-                    <oj-option id="pref" value="pref">Preferences</oj-option>
+                    <!-- <oj-option id="pref" value="pref">Preferences</oj-option>
                     <oj-option id="help" value="help">Help</oj-option>
-                    <oj-option id="about" value="about">About</oj-option>
+                    <oj-option id="about" value="about">About</oj-option> -->
                     <oj-option id="out" value="out">Sign Out</oj-option>
                   </oj-menu>
                 </oj-menu-button>
