@@ -12,27 +12,16 @@
     dnd='{"reorder": {"columns": "enabled"}}'
     scroll-policy='loadMoreOnScroll'
     scroll-policy-options='{"fetchSize": 10}'
-    columns='[{"headerText": "Department Id", 
-               "field": "DepartmentId",
-               "headerClassName": "oj-sm-only-hide",
-               "className": "oj-sm-only-hide",
-               "resizable": "enabled"},
-              {"headerText": "Department Name", 
-               "field": "DepartmentName",
-               "resizable": "enabled"},
-              {"headerText": "Location Id", 
-               "field": "LocationId",
-               "headerClassName": "oj-sm-only-hide",
-               "className": "oj-sm-only-hide",
-               "resizable": "enabled"},
-              {"headerText": "Manager Id", 
-               "field": "ManagerId",
-               "resizable": "enabled"},
-              {"headerText": "Employee Count", 
-               "field": "EmployeeCount",
-               "headerClassName": "oj-md-down-hide",
-               "className": "oj-md-down-hide",
-               "resizable": "enabled"}]'
+    columns='[
+              {"headerText": "Service Name", 
+                "field": "service_name",
+                "resizable": "enabled"},
+              {"headerText": "Service Description", 
+                "field": "service_description",
+                "headerClassName": "oj-sm-only-hide",
+                "className": "oj-sm-only-hide",
+                "resizable": "enabled"}
+              ]'
     class='demo-table-container oj-bg-body'>
 </oj-table>
   </div>
