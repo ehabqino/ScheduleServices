@@ -1,54 +1,132 @@
-/**
- * @license
- * Copyright (c) 2014, 2021, Oracle and/or its affiliates.
- * Licensed under The Universal Permissive License (UPL), Version 1.0
- * as shown at https://oss.oracle.com/licenses/upl/
- * @ignore
- */
-/*
- * Your about ViewModel code goes here
- */
-define(['accUtils'],
- function(accUtils) {
+
+define(["require", "exports", "knockout", "ojs/ojbootstrap", "ojs/ojarraydataprovider","ojs/ojtable", "ojs/ojknockout"],
+  function(require, exports, ko, ojbootstrap_1, ArrayDataProvider) {
     function ServicesViewModel() {
-      // Below are a set of the ViewModel methods invoked by the oj-module component.
-      // Please reference the oj-module jsDoc for additional information.
 
-      /**
-       * Optional ViewModel method invoked after the View is inserted into the
-       * document DOM.  The application can put logic that requires the DOM being
-       * attached here.
-       * This method might be called multiple times - after the View is created
-       * and inserted into the DOM and after the View is reconnected
-       * after being disconnected.
-       */
-      this.connected = () => {
-        accUtils.announce('About page loaded.', 'assertive');
-        document.title = "About";
-        // Implement further logic if needed
-      };
+      this.deptArray = [
+    {
+      "DepartmentId": 10,
+      "DepartmentName": "Finance 9",
+      "LocationId": 300,
+      "ManagerId": 7001,
+      "StartDate": "2014-06-13",
+      "EmployeeCount": 335,
+      "Type": "Sales",
+      "Currency": "EUR",
+      "Primary": [],
+      "Rating": 3,
+      "TargetComplete": 90
+    },
+    {
+      "DepartmentId": 20,
+      "DepartmentName": "Control And Credit 9",
+      "LocationId": 300,
+      "ManagerId": 7001,
+      "StartDate": "2019-09-10",
+      "EmployeeCount": 206,
+      "Type": "HR",
+      "Currency": "USD",
+      "Primary": [],
+      "Rating": 1,
+      "TargetComplete": 90
+    },
+    {
+      "DepartmentId": 30,
+      "DepartmentName": "Purchasing 28",
+      "LocationId": 400,
+      "ManagerId": 6001,
+      "StartDate": "2021-01-03",
+      "EmployeeCount": 473,
+      "Type": "HR",
+      "Currency": "JPY",
+      "Primary": ["checked"],
+      "Rating": 3,
+      "TargetComplete": 50
+    },
+    {
+      "DepartmentId": 40,
+      "DepartmentName": "Purchasing 27",
+      "LocationId": 400,
+      "ManagerId": 1001,
+      "StartDate": "2016-02-01",
+      "EmployeeCount": 369,
+      "Type": "Finance",
+      "Currency": "JPY",
+      "Primary": [],
+      "Rating": 5,
+      "TargetComplete": 80
+    },
+    {
+      "DepartmentId": 50,
+      "DepartmentName": "Shipping 4",
+      "LocationId": 300,
+      "ManagerId": 2001,
+      "StartDate": "2014-07-31",
+      "EmployeeCount": 476,
+      "Type": "HR",
+      "Currency": "EUR",
+      "Primary": [],
+      "Rating": 2,
+      "TargetComplete": 90
+    },
+    {
+      "DepartmentId": 60,
+      "DepartmentName": "Finance 10",
+      "LocationId": 400,
+      "ManagerId": 5001,
+      "StartDate": "2017-01-17",
+      "EmployeeCount": 304,
+      "Type": "Sales",
+      "Currency": "JPY",
+      "Primary": ["checked"],
+      "Rating": 3,
+      "TargetComplete": 80
+    },
+    {
+      "DepartmentId": 70,
+      "DepartmentName": "Operations 9",
+      "LocationId": 400,
+      "ManagerId": 6001,
+      "StartDate": "2015-05-24",
+      "EmployeeCount": 334,
+      "Type": "Sales",
+      "Currency": "EUR",
+      "Primary": [],
+      "Rating": 2,
+      "TargetComplete": 60
+    },
+    {
+      "DepartmentId": 80,
+      "DepartmentName": "Sales and Marketing 18",
+      "LocationId": 500,
+      "ManagerId": 4001,
+      "StartDate": "2017-03-25",
+      "EmployeeCount": 211,
+      "Type": "Finance",
+      "Currency": "JPY",
+      "Primary": [],
+      "Rating": 1,
+      "TargetComplete": 70
+    },
+    {
+      "DepartmentId": 90,
+      "DepartmentName": "Inventory 6",
+      "LocationId": 400,
+      "ManagerId": 5001,
+      "StartDate": "2017-12-18",
+      "EmployeeCount": 429,
+      "Type": "Finance",
+      "Currency": "EUR",
+      "Primary": ["checked"],
+      "Rating": 1,
+      "TargetComplete": 70
+    }];
+      this.dataprovider = new ArrayDataProvider(this.deptArray, {
+          keyAttributes: "DepartmentId",
+          implicitSort: [{ attribute: "DepartmentId", direction: "ascending" }],
+      });
 
-      /**
-       * Optional ViewModel method invoked after the View is disconnected from the DOM.
-       */
-      this.disconnected = () => {
-        // Implement if needed
-      };
-
-      /**
-       * Optional ViewModel method invoked after transition to the new View is complete.
-       * That includes any possible animation between the old and the new View.
-       */
-      this.transitionCompleted = () => {
-        // Implement if needed
-      };
     }
-
-    /*
-     * Returns an instance of the ViewModel providing one instance of the ViewModel. If needed,
-     * return a constructor for the ViewModel so that the ViewModel is constructed
-     * each time the view is displayed.
-     */
-    return ServicesViewModel;
+      return ServicesViewModel;
   }
 );
