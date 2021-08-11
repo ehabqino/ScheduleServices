@@ -6,9 +6,26 @@
 <div class="oj-hybrid-padding">
   <h1>Services Content Area</h1>
   <div>
+    <div id="dialogWrapper">
+      <oj-dialog id="modalDialog1" dialog-title="Modal Dialog">
+        <div slot="body">
+          This is the dialog content.
+          User can change dialog resize behavior, cancel behavior and drag behavior by setting attributes.
+          Default attribute value depends on the theme.
+        </div>
+        <div slot="footer">
+          <oj-button id="okButton" on-oj-action="[[save]]">Save
+          </oj-button>
+          <oj-button id="okButton" on-oj-action="[[cancel]]">Cancel
+          </oj-button>
+        </div>
+      </oj-dialog>
+      <oj-button id="buttonOpener" on-oj-action="[[open]]">
+        Add New Service
+      </oj-button>
+    </div>
     <oj-table id='table' aria-label='Departments Table'
     data='[[dataprovider]]'
-    selection-mode='{"row": "multiple", "column": "multiple"}'
     dnd='{"reorder": {"columns": "enabled"}}'
     scroll-policy='loadMoreOnScroll'
     scroll-policy-options='{"fetchSize": 10}'
@@ -23,6 +40,12 @@
                 "resizable": "enabled"}
               ]'
     class='demo-table-container oj-bg-body'>
-</oj-table>
+    </oj-table>
+    <oj-messages id="oj-messages-id" messages="[[messagesDataprovider]]" display="notification"
+                        display-options.category="none"
+                        position='{"my":{"vertical" :"top", "horizontal": "end"}, 
+                                    "at": {"vertical": "top", "horizontal": "end"},
+                                    "of": "window"}'>
+    </oj-messages>
   </div>
 </div>
