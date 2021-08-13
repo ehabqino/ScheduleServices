@@ -53,7 +53,68 @@ function(oj) {
                 }
             });
 
-        }//end getCategoryList
+        }//end getServicesList
+        
+        addService(name,description,notify){
+            
+           // Collection = Table(Rows)
+           // Model = Row
+           // Collection is a group of Rows
+            let url_api = this.serverUrl+"document/"+"services/";
+            //let url_api = this.serverUrl +"/"+ id + ".json";
+            this.initializeModelCollection(url_api);
+            let serviceRow = new this.servicesModelDef({
+                "@class" : "jet_services",
+                "service_name": name,
+                "service_description":description
+            },this.service);
+
+           //AJAX (Take Time)
+            serviceRow.save(null,{
+                type: "POST",
+                success : function(model,response,options){
+                    //notify(response.name);
+                    notify(true,response);
+                },
+                //xhr = xml http request , can be use any name for example x
+                error : function(modle,xhr,options){
+                    
+                    notify(false,`Error Code : ${xhr.status} , msg : ${options.textStatus}`);
+                },
+                headers : {
+                    'Authorization' : 'Basic cm9vdDpyb290cHdk',
+                    //'Authorization' : 'Basic' + btoa('root:rootpwd'),
+                    'Content-Type' : 'application/json'
+                }
+            });
+        }//end addClass
+//==================================================================================================================//
+        updateService(id,title,description){
+
+        }//end update Class
+//==================================================================================================================//
+        deleteService(id,notify){
+            let url_api = this.serverUrl +"/"+ id + ".json";
+            this.initializeModelCollection(url_api);
+            let serviceRow = new this.servicesModelDef({
+                "id":id,
+            },this.service);
+
+           //AJAX (Take Time)
+            serviceRow.save(null,{
+                type: "DELETE",
+                success : function(model,response,options){
+                    //notify(response.name);
+                    notify(true,"Service with ID :" + id + " is Deleted Sucessfully");
+                },
+                //xhr = xml http request , can be use any name for example x
+                error : function(modle,xhr,options){
+                    
+                    notify(false,`Error Code : ${xhr.status} , msg : ${options.textStatus}`);
+                }
+            });
+        }//end serviceClass
+//==================================================================================================================//         
 
     }//end class
     return new ServicesModel;

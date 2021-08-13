@@ -7,11 +7,12 @@
   <h1>Services Content Area</h1>
   <div>
     <div id="dialogWrapper">
-      <oj-dialog id="modalDialog1" dialog-title="Modal Dialog">
+      <oj-dialog id="modalDialog1" dialog-title="New Service">
         <div slot="body">
-          This is the dialog content.
-          User can change dialog resize behavior, cancel behavior and drag behavior by setting attributes.
-          Default attribute value depends on the theme.
+          <oj-input-text id="name" value="{{serviceName}}"
+          label-hint="Color" label-edge="inside"></oj-input-text>
+          <oj-input-text id="description" value="{{serviceDescription}}"
+          label-hint="Color" label-edge="inside"></oj-input-text>
         </div>
         <div slot="footer">
           <oj-button id="okButton" on-oj-action="[[save]]">Save
