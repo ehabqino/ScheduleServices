@@ -1,31 +1,36 @@
 
 define(["require","jquery", "exports", "knockout", "ojs/ojbootstrap", "ojs/ojarraydataprovider","models/services.model",
-          "ojs/ojtable", "ojs/ojknockout","ojs/ojbutton", "ojs/ojdialog","ojs/ojmessages","JETUtils"],
+          "ojs/ojtable", "ojs/ojknockout","ojs/ojbutton", "ojs/ojdialog","ojs/ojmessages","ojs/ojinputtext","JETUtils"],
   function(require,$, exports, ko, ojbootstrap_1, ArrayDataProvider,ServicesModel) {
     function ServicesViewModel() {
       var self = this;
       this.serviceArray=ko.observableArray([]);
       this.messagesDataprovider = ko.observableArray([]);
-      this.serviceName = ko.observable();
-      this.serviceDescription = ko.observable();
+      self.serviceName = ko.observable();
+      self.serviceDescription = ko.observable();
     
       this.dataprovider = new ArrayDataProvider(this.serviceArray, {
           keyAttributes: "service_name",
           implicitSort: [{ attribute: "service_name", direction: "ascending" }],
       });
+      
+      self.refreshAllData = ()=>{
+        ServicesModel.getServicesList((success,data)=>{
+          if(success)
+          {
+            console.log("All Services : " + data);
+            this.serviceArray(data);
+            this.serviceArray.valueHasMutated();
+          }
+        });
+    
+      }// end refreshAllData
 
-      ServicesModel.getServicesList((success,data)=>{
-        if(success)
-        {
-          console.log("All Services : " + data);
-          this.serviceArray(data);
-          this.serviceArray.valueHasMutated();
-        }
-      });
+      self.refreshAllData();
 
       this.save= (event)=> {
         document.getElementById("modalDialog1").close();
-        ServicesModel.addService("testGG","testGG",(success,response)=>{
+        ServicesModel.addService(self.serviceName(),self.serviceDescription(),(success,response)=>{
           // alert(success,response);
           // console.log(response);
           if(success){
@@ -38,6 +43,7 @@ define(["require","jquery", "exports", "knockout", "ojs/ojbootstrap", "ojs/ojarr
     
             });
           }//else alert(success);
+          self.refreshAllData();
         })
         
       }
