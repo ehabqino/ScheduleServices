@@ -94,10 +94,11 @@ function(oj) {
         }//end update Class
 //==================================================================================================================//
         deleteService(id,notify){
-            let url_api = this.serverUrl +"/"+ id + ".json";
+            //let url_api = this.serverUrl +"/"+ id + ".json";
+            let url_api = this.serverUrl+"document/"+"services/"+id
             this.initializeModelCollection(url_api);
             let serviceRow = new this.servicesModelDef({
-                "id":id,
+                "@rid":id,
             },this.service);
 
            //AJAX (Take Time)
@@ -111,6 +112,11 @@ function(oj) {
                 error : function(modle,xhr,options){
                     
                     notify(false,`Error Code : ${xhr.status} , msg : ${options.textStatus}`);
+                },
+                headers : {
+                    'Authorization' : 'Basic ZWhhYnFpbm86cGFzcw==',
+                    //'Authorization' : 'Basic' + btoa('root:rootpwd'),
+                    'Content-Type' : 'application/json'
                 }
             });
         }//end serviceClass
