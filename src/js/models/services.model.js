@@ -4,7 +4,7 @@ function(oj) {
         constructor(){
             this.serverUrl = "http://127.0.0.1:2480/";
         }//end of constructor
-
+//======================================================================
         initializeModelCollection(endpoint){
             this.servicesModelDef = oj.Model.extend({
                 url : endpoint,
@@ -19,7 +19,7 @@ function(oj) {
             this.service = new this.servicesCollDef;
 
         }//initializeModelCollection
-
+//======================================================================
         getServicesList(notify){
             //api url for all service
             let api_url = this.serverUrl + "query/services/sql/SELECT FROM jet_services";
@@ -47,14 +47,15 @@ function(oj) {
                     notify(false,"Error : " + xhr.textStatus);
                 },
                 headers : {
-                    'Authorization' : 'Basic cm9vdDpyb290cHdk',
+                    'Authorization' : 'Basic YWRtaW5zZXJ2aWNlOmFkbWlucHdk',
                     //'Authorization' : 'Basic' + btoa('root:rootpwd'),
                     'Content-Type' : 'application/json'
                 }
             });
 
         }//end getServicesList
-        
+  //======================================================================
+
         addService(name,description,notify){
             
            // Collection = Table(Rows)
@@ -82,14 +83,39 @@ function(oj) {
                     notify(false,`Error Code : ${xhr.status} , msg : ${options.textStatus}`);
                 },
                 headers : {
-                    'Authorization' : 'Basic cm9vdDpyb290cHdk',
+                    'Authorization' : 'Basic YWRtaW5zZXJ2aWNlOmFkbWlucHdk',
                     //'Authorization' : 'Basic' + btoa('root:rootpwd'),
                     'Content-Type' : 'application/json'
                 }
             });
         }//end addClass
 //==================================================================================================================//
-        updateService(id,title,description){
+        updateService(id,description,name,notify){
+            let url_api = this.serverUrl+"document/"+"services/"+id;
+            this.initializeModelCollection(url_api);
+            let serviceRow = new this.servicesModelDef({
+                "@class" : "jet_services",
+                "@rid": id,
+                "service_name":name,
+                "service_description":description
+            },this.service);
+
+            serviceRow.save(null,{
+                type: "PUT",
+                success : function(model,response,options){
+                    //notify(response.name);
+                    notify(true,response);
+                },
+                //xhr = xml http request , can be use any name for example x
+                error : function(modle,xhr,options){
+                    
+                    notify(false,`Error Code : ${xhr.status} , msg : ${options.textStatus}`);
+                },
+                headers : {
+                    'Authorization' : 'Basic YWRtaW5zZXJ2aWNlOmFkbWlucHdk',
+                    'Content-Type' : 'application/json'
+                }
+            });
 
         }//end update Class
 //==================================================================================================================//
@@ -100,7 +126,7 @@ function(oj) {
             let serviceRow = new this.servicesModelDef({
                 "@rid":id,
             },this.service);
-
+           // console.log(id);
            //AJAX (Take Time)
             serviceRow.save(null,{
                 type: "DELETE",
@@ -114,16 +140,16 @@ function(oj) {
                     notify(false,`Error Code : ${xhr.status} , msg : ${options.textStatus}`);
                 },
                 headers : {
-                    'Authorization' : 'Basic ZWhhYnFpbm86cGFzcw==',
-                    //'Authorization' : 'Basic' + btoa('root:rootpwd'),
+                    'Authorization' : 'Basic YWRtaW5zZXJ2aWNlOmFkbWlucHdk',
+                    //'Authorization' : 'Basic' + btoa('adminservice:adminpwd')
                     'Content-Type' : 'application/json'
                 }
             });
-        }//end serviceClass
-//==================================================================================================================//         
+        }//end deleteService
+//=====================================================================================
 
-    }//end class
-    return new ServicesModel;
-    
-    
+
+//######################################################################################
+}//end class
+    return new ServicesModel;   
 });

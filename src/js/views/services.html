@@ -22,6 +22,26 @@
           </oj-button>
         </div>
       </oj-dialog>
+
+      <oj-dialog id="updateServiceDialogId" dialog-title="Update Service">
+        <div slot="body">
+          <oj-input-text id="service-id" value="{{serviceid}}" readonly="true"
+          label-hint="Service ID" label-edge="inside"></oj-input-text>
+          <br><br>
+          <oj-input-text id="update-servicename-input" value="{{serviceNameUpdate}}" 
+          label-hint="Service Name" label-edge="inside"></oj-input-text>
+          <br><br>
+          <oj-input-text id="update-servicedesc-input" value="{{serviceDescUpdate}}"
+          label-hint="Service Description" label-edge="inside"></oj-input-text>
+        </div>
+        <div slot="footer">
+          <oj-button id="okButton" on-oj-action="[[saveUpdate]]">Save
+          </oj-button>
+          <oj-button id="okButton" on-oj-action="[[cancelUpdate]]">Cancel
+          </oj-button>
+        </div>
+      </oj-dialog>
+
       <oj-button id="buttonOpener" on-oj-action="[[open]]">
         Add New Service
       </oj-button>
@@ -41,9 +61,23 @@
                 "field": "service_description",
                 "headerClassName": "oj-sm-only-hide",
                 "className": "oj-sm-only-hide",
-                "resizable": "enabled"}
+                "resizable": "enabled"},
+              {"headerText": "Actions", 
+                "resizable": "enabled",
+                "template" : "cellTemplate"}
               ]'
-    class='demo-table-container oj-bg-body'>
+              class='demo-table-container oj-bg-body'>
+              <template slot="cellTemplate" data-oj-as="cell">
+                <oj-button id="buttonOpenerUpdate" display="icons" chroming="borderless" on-oj-action="[[openUpdate]]">
+                  <span slot="startIcon" class="oj-ux-ico-edit"></span>
+                  
+                </oj-button>
+
+                <oj-button id="buttonDelete" display="icons" chroming="borderless" on-oj-action="[[delete_Service]]">
+                  <span slot="startIcon" class="oj-ux-ico-trash"></span>
+                  
+                </oj-button>
+              </template>
     </oj-table>
     <oj-messages id="oj-messages-id" messages="[[messagesDataprovider]]" display="notification"
                         display-options.category="none"
