@@ -25,8 +25,7 @@
 
       <oj-dialog id="updateServiceDialogId" dialog-title="Update Service">
         <div slot="body">
-          <oj-input-text id="service-id" value="{{serviceid}}" readonly="true"
-          label-hint="Service ID" label-edge="inside"></oj-input-text>
+          <oj-bind-text value="[[serviceid]]"></oj-bind-text>
           <br><br>
           <oj-input-text id="update-servicename-input" value="{{serviceNameUpdate}}" 
           label-hint="Service Name" label-edge="inside"></oj-input-text>
@@ -38,6 +37,18 @@
           <oj-button id="okButton" on-oj-action="[[saveUpdate]]">Save
           </oj-button>
           <oj-button id="okButton" on-oj-action="[[cancelUpdate]]">Cancel
+          </oj-button>
+        </div>
+      </oj-dialog>
+
+      <oj-dialog id="deleteServiceDialogId" dialog-title="Delete Service">
+        <div slot="body">
+          Are you sure you want to delete service (<span><oj-bind-text value="[[deleteServiceName]]"></oj-bind-text></span>) ?
+        </div>
+        <div slot="footer">
+          <oj-button id="okButton" on-oj-action="[[okDelete]]">OK
+          </oj-button>
+          <oj-button id="okButton" on-oj-action="[[cancelDelete]]">Cancel
           </oj-button>
         </div>
       </oj-dialog>

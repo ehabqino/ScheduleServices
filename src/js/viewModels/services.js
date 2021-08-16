@@ -13,6 +13,9 @@ define(["require","jquery", "exports", "knockout", "ojs/ojbootstrap", "ojs/ojarr
       self.serviceNameUpdate = ko.observable();
       self.serviceDescUpdate = ko.observable();
       self.serviceid = ko.observable();
+
+      //for delete service:
+      self.deleteServiceName = ko.observable();
     
       self.dataprovider = new ArrayDataProvider(self.serviceArray, {
           keyAttributes: "service_name",
@@ -98,6 +101,8 @@ define(["require","jquery", "exports", "knockout", "ojs/ojbootstrap", "ojs/ojarr
           self.serviceid(selectedRow["@rid"].slice(1));
           self.serviceNameUpdate(key);
           self.serviceDescUpdate(selectedRow.service_description);
+
+          self.deleteServiceName(key);
     
             });  
         }
@@ -137,9 +142,47 @@ define(["require","jquery", "exports", "knockout", "ojs/ojbootstrap", "ojs/ojarr
   }//end cancelUpdate
 //====================================================================================
 
+self.cancelDelete=(event)=> {
+  document.getElementById("deleteServiceDialogId").close();
+}//end cancelDelete
+//====================================================================================
+
+self.okDelete = (event)=> {
+  //console.log(self.serviceid());
+  document.getElementById("deleteServiceDialogId").close();
+
+    ServicesModel.deleteService(self.serviceid(),(success,response)=>{
+      if(success){
+        self.messagesDataprovider.push({
+        severity: "confirmation",
+        summary: "Delete Service",
+        detail: "Service Deleted Successfuly",
+        //autoTimeout: 2000,
+        autoTimeout: UTIL.message_timeout
+
+      });
+      }
+      else{
+        self.messagesDataprovider.push({
+          severity: "error",
+          summary: "Error",
+          detail: "Error Delete Service",
+          //autoTimeout: 2000,
+          autoTimeout: UTIL.message_timeout
+
+          });
+      }
+  
+      self.refreshAllData();
+    
+  });
+  
+  
+}
+//====================================================================================
 self.delete_Service = (event)=>{
   
-  console.log(self.serviceid());
+  document.getElementById("deleteServiceDialogId").open();
   
 }
 //############################################################################################
