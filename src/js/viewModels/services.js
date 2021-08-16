@@ -1,6 +1,6 @@
 
 define(["require","jquery", "exports", "knockout", "ojs/ojbootstrap", "ojs/ojarraydataprovider","models/services.model",
-          "ojs/ojtable", "ojs/ojknockout","ojs/ojbutton", "ojs/ojdialog","ojs/ojmessages","ojs/ojinputtext","JETUtils"],
+          "ojs/ojtable", "ojs/ojknockout","ojs/ojbutton", "ojs/ojdialog","ojs/ojmessages","ojs/ojinputtext","JETUtils","ojs/ojavatar"],
   function(require,$, exports, ko, ojbootstrap_1, ArrayDataProvider,ServicesModel) {
     function ServicesViewModel() {
       var self = this;
