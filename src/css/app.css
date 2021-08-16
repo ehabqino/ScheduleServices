@@ -15,25 +15,32 @@
   overflow: hidden;
 }
 
-.oj-text-myprimary-color{
-  color: #027BC7;
+.oj-text-myprimary-color {
+  color: #027bc7;
 }
 
 @font-face {
-  font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?o5noui');
-  src:  url('fonts/icomoon.eot?o5noui#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?o5noui') format('truetype'),
-    url('fonts/icomoon.woff?o5noui') format('woff'),
-    url('fonts/icomoon.svg?o5noui#icomoon') format('svg');
+  font-family: "icomoon";
+  src: url("fonts/icomoon.eot?o5noui");
+  src: url("fonts/icomoon.eot?o5noui#iefix") format("embedded-opentype"),
+    url("fonts/icomoon.ttf?o5noui") format("truetype"),
+    url("fonts/icomoon.woff?o5noui") format("woff"),
+    url("fonts/icomoon.svg?o5noui#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+.HeaderTable {
+  color: brown;
+  font-weight: bold;
+  font-size: large;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
+  font-family: "icomoon" !important;
   speak: never;
   font-style: normal;
   font-weight: normal;

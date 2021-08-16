@@ -17,8 +17,15 @@
         </div>
         <div slot="footer">
           <oj-button id="okButton" on-oj-action="[[save]]">Save
+            <oj-avatar id="updatepng" role="img" aria-label="Avatar of Amy Bartlet"
+              size="xxs" initials="AB" slot="startIcon"
+              src="css/images/ok_24.png">
           </oj-button>
           <oj-button id="okButton" on-oj-action="[[cancel]]">Cancel
+            <oj-avatar id="updatepng" role="img" aria-label="Avatar of Amy Bartlet"
+              size="xxs" initials="AB" slot="startIcon"
+              src="css/images/cancel_24.png">
+            </oj-avatar>
           </oj-button>
         </div>
       </oj-dialog>
@@ -35,8 +42,16 @@
         </div>
         <div slot="footer">
           <oj-button id="okButton" on-oj-action="[[saveUpdate]]">Save
+            <oj-avatar id="updatepng" role="img" aria-label="Avatar of Amy Bartlet"
+              size="xxs" initials="AB" slot="startIcon"
+              src="css/images/ok_24.png">
+            </oj-avatar>
           </oj-button>
           <oj-button id="okButton" on-oj-action="[[cancelUpdate]]">Cancel
+            <oj-avatar id="updatepng" role="img" aria-label="Avatar of Amy Bartlet"
+              size="xxs" initials="AB" slot="startIcon"
+              src="css/images/cancel_24.png">
+            </oj-avatar>
           </oj-button>
         </div>
       </oj-dialog>
@@ -47,13 +62,21 @@
         </div>
         <div slot="footer">
           <oj-button id="okButton" on-oj-action="[[okDelete]]">OK
+            <oj-avatar id="updatepng" role="img" aria-label="Avatar of Amy Bartlet"
+              size="xxs" initials="AB" slot="startIcon"
+              src="css/images/ok_24.png">
+            </oj-avatar>
           </oj-button>
-          <oj-button id="okButton" on-oj-action="[[cancelDelete]]">Cancel
+          <oj-button id="okButton" on-oj-action="[[cancelDelete]]"> Cancel
+            <oj-avatar id="updatepng" role="img" aria-label="Avatar of Amy Bartlet"
+              size="xxs" initials="AB" slot="startIcon"
+              src="css/images/cancel_24.png">
+            </oj-avatar>
           </oj-button>
         </div>
       </oj-dialog>
 
-      <oj-button id="buttonOpener" on-oj-action="[[open]]">
+      <oj-button id="buttonOpener" on-oj-action="[[open]]" chroming="callToAction">
         Add New Service
         <oj-avatar id="jpg" role="img" aria-label="Avatar of Amy Bartlet"
         size="xxs" initials="AB" slot="startIcon"
@@ -71,26 +94,34 @@
     columns='[
               {"headerText": "Service Name", 
                 "field": "service_name",
+                "headerClassName": "HeaderTable",
                 "resizable": "enabled"},
               {"headerText": "Service Description", 
                 "field": "service_description",
-                "headerClassName": "oj-sm-only-hide",
+                "headerClassName": "HeaderTable",
                 "className": "oj-sm-only-hide",
                 "resizable": "enabled"},
               {"headerText": "Actions", 
+                "headerClassName": "HeaderTable",
                 "resizable": "enabled",
                 "template" : "cellTemplate"}
               ]'
               class='demo-table-container oj-bg-body'>
               <template slot="cellTemplate" data-oj-as="cell">
                 <oj-button id="buttonOpenerUpdate" display="icons" chroming="borderless" on-oj-action="[[openUpdate]]">
-                  <span slot="startIcon" class="oj-ux-ico-edit"></span>
-                  
+                  <!-- <span slot="startIcon" class="oj-ux-ico-edit"></span> -->
+                  <oj-avatar id="updatepng" role="img" aria-label="Avatar of Amy Bartlet"
+                  size="xxs" initials="AB" slot="startIcon"
+                  src="css/images/edit_24.png">
+              </oj-avatar>
                 </oj-button>
 
                 <oj-button id="buttonDelete" display="icons" chroming="borderless" on-oj-action="[[delete_Service]]">
-                  <span slot="startIcon" class="oj-ux-ico-trash"></span>
-                  
+                  <!-- <span slot="startIcon" class="oj-ux-ico-trash"></span> -->
+                  <oj-avatar id="deletepng" role="img" aria-label="Avatar of Amy Bartlet"
+                  size="xxs" initials="AB" slot="startIcon"
+                  src="css/images/delete_24.png">
+              </oj-avatar>
                 </oj-button>
               </template>
     </oj-table>
