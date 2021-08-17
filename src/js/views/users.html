@@ -41,6 +41,46 @@
         </oj-button>
       </div>
     </oj-dialog>
+    <oj-dialog id="updateUserDialogId" dialog-title="Update User">
+      <div slot="body">
+       
+      </div>
+      <div slot="footer">
+        <oj-button id="okButton" on-oj-action="[[saveUpdate]]">Save
+          <oj-avatar id="updatepng" role="img" aria-label="Avatar of Amy Bartlet"
+            size="xxs" initials="AB" slot="startIcon"
+            src="css/images/ok_24.png">
+          </oj-avatar>
+        </oj-button>
+        <oj-button id="okButton" on-oj-action="[[cancelUpdate]]">Cancel
+          <oj-avatar id="updatepng" role="img" aria-label="Avatar of Amy Bartlet"
+            size="xxs" initials="AB" slot="startIcon"
+            src="css/images/cancel_24.png">
+          </oj-avatar>
+        </oj-button>
+      </div>
+    </oj-dialog>
+
+    <oj-dialog id="deleteUserDialogId" dialog-title="Delete User">
+      <div slot="body">
+        
+      </div>
+      <div slot="footer">
+        <oj-button id="okButton" on-oj-action="[[okDelete]]">OK
+          <oj-avatar id="updatepng" role="img" aria-label="Avatar of Amy Bartlet"
+            size="xxs" initials="AB" slot="startIcon"
+            src="css/images/ok_24.png">
+          </oj-avatar>
+        </oj-button>
+        <oj-button id="okButton" on-oj-action="[[cancelDelete]]"> Cancel
+          <oj-avatar id="updatepng" role="img" aria-label="Avatar of Amy Bartlet"
+            size="xxs" initials="AB" slot="startIcon"
+            src="css/images/cancel_24.png">
+          </oj-avatar>
+        </oj-button>
+      </div>
+    </oj-dialog>
+
     <oj-button id="buttonOpener" on-oj-action="[[open]]" chroming="callToAction">
       Add New User
       <oj-avatar id="jpg" role="img" aria-label="Avatar of Amy Bartlet"
@@ -49,14 +89,41 @@
       </oj-avatar>
     </oj-button>
     <oj-table id="Userstable" aria-label="Users Table" data="[[pagingDataProvider]]"
-      columns='[{"headerText": "User Name", "field": "user_name"},
-                {"headerText": "User Display Name", "field": "user_display_name"},
-                {"headerText": "User Type", "field": "user_type"},
-                {"headerText": "User Active", "field": "user_active"}
+      columns='[{"headerText": "User Name", "field": "user_name","headerClassName": "HeaderTable"},
+                {"headerText": "User Display Name", "field": "user_display_name","headerClassName": "HeaderTable"},
+                {"headerText": "User Type", "field": "user_type","headerClassName": "HeaderTable"},
+                {"headerText": "User Active", "field": "user_active","headerClassName": "HeaderTable"},
+                {"headerText": "Actions", 
+                "headerClassName": "HeaderTable",
+                "resizable": "enabled",
+                "template" : "cellTemplate"}
                 ]' 
                 class="oj-sm-width-full">
+                <template slot="cellTemplate" data-oj-as="cell">
+                  <oj-button id="buttonOpenerUpdate" display="icons" chroming="borderless" on-oj-action="[[openUpdate]]">
+                    <!-- <span slot="startIcon" class="oj-ux-ico-edit"></span> -->
+                    <oj-avatar id="updatepng" role="img" aria-label="Avatar of Amy Bartlet"
+                    size="xxs" initials="AB" slot="startIcon"
+                    src="css/images/edit_24.png">
+                </oj-avatar>
+                  </oj-button>
+  
+                  <oj-button id="buttonDelete" display="icons" chroming="borderless" on-oj-action="[[delete_User]]">
+                    <!-- <span slot="startIcon" class="oj-ux-ico-trash"></span> -->
+                    <oj-avatar id="deletepng" role="img" aria-label="Avatar of Amy Bartlet"
+                    size="xxs" initials="AB" slot="startIcon"
+                    src="css/images/delete_24.png">
+                </oj-avatar>
+                  </oj-button>
+                </template>
       <oj-paging-control id="paging" data="[[pagingDataProvider]]" page-size="3" slot="bottom">
       </oj-paging-control>
     </oj-table>
+    <oj-messages id="oj-messages-id" messages="[[messagesDataprovider]]" display="notification"
+                        display-options.category="none"
+                        position='{"my":{"vertical" :"top", "horizontal": "end"}, 
+                                    "at": {"vertical": "top", "horizontal": "end"},
+                                    "of": "window"}'>
+    </oj-messages>
   </div>
 </div>
