@@ -34,11 +34,21 @@ define([
 
     self.messagesDataprovider = ko.observableArray([]);
 
+    self.userid = ko.observable();
     self.userName = ko.observable();
     self.userPassword = ko.observable();
     self.userDisplayName = ko.observable();
     self.userType = ko.observable("USER");
     self.userActive = ko.observable();
+
+
+    self.deleteUserName = ko.observable();
+
+    self.userNameUpdate = ko.observable();
+    self.userPasswordUpdate = ko.observable();
+    self.userDisplayUpdate = ko.observable();
+    self.userActiveUpdate = ko.observable();
+    self.userTypeUpdate = ko.observable();
     //==========================================================
     self.refreshAllData = () => {
       UsersModel.getUsersList((sucess, data) => {
@@ -111,6 +121,33 @@ define([
     }; //end save;
     //====================================================================================
 
+    self.selectedChangedListener = (event) => {
+      const row = event.detail.value.row;
+      console.log(row);
+
+      if (row.values().size > 0) {
+        row.values().forEach((key) => {
+          console.log(key);
+          var selectedRow = self.usersArray().find(element => element.user_name == key);
+          //console.log(selectedRow.user_display_name);
+          //console.log(selectedRow["@rid"].slice(1));
+          self.userid(selectedRow["@rid"].slice(1));
+          //console.log(self.userid());
+
+          self.userNameUpdate(key);
+          self.userDisplayUpdate(selectedRow.user_display_name);
+          self.userPasswordUpdate(selectedRow.user_password);
+          // self.userActiveUpdate(selectedRow.user_active);
+          self.userTypeUpdate(selectedRow.user_type);
+
+
+          self.deleteUserName(key);
+
+        });
+      }
+    }//end selectedChangedListener
+    //====================================================================================
+
     self.openUpdate = (event) => {
       document.getElementById("updateUserDialogId").open();
     }
@@ -128,13 +165,69 @@ define([
     //====================================================================================
 
     self.okDelete = (event) => {
-      //console.log(self.serviceid());
       document.getElementById("deleteUserDialogId").close();
+      UsersModel.deleteUser(self.userid(), (success, response) => {
+        if (success) {
+          self.messagesDataprovider.push({
+            severity: "confirmation",
+            summary: "Delete User",
+            detail: "User Deleted Successfuly",
+            //autoTimeout: 2000,
+            autoTimeout: UTIL.message_timeout
+
+          });
+        }
+        else {
+          self.messagesDataprovider.push({
+            severity: "error",
+            summary: "Error",
+            detail: "Error Delete User",
+            //autoTimeout: 2000,
+            autoTimeout: UTIL.message_timeout
+
+          });
+        }
+
+        self.refreshAllData();
+
+      });
     }//end okDelete
     //=====================================================================================
     self.saveUpdate = (event) => {
       //console.log(self.serviceid());
       document.getElementById("updateUserDialogId").close();
+      if (self.userNameUpdate() == "" || self.userPasswordUpdate() == "" || self.userDisplayUpdate() == "") {
+
+        self.messagesDataprovider.push({
+          severity: "error",
+          summary: "Error",
+          detail: "Error Update Information of user",
+          //autoTimeout: 2000,
+          autoTimeout: UTIL.message_timeout
+
+        });
+      }//end if
+      else {
+        UsersModel.updateUser(self.userid(), self.userNameUpdate(), self.userPasswordUpdate(), self.userDisplayUpdate(),
+          self.userTypeUpdate(), self.userActiveUpdate(), (success, response) => {
+            // alert(success,response);
+            // console.log(response);
+
+            if (success) {
+              self.messagesDataprovider.push({
+                severity: "confirmation",
+                summary: "Update User",
+                detail: "User Updated Successfuly",
+                //autoTimeout: 2000,
+                autoTimeout: UTIL.message_timeout
+
+              });
+            }//end if
+            self.refreshAllData();
+
+          });
+
+      }//end else
     }//end saveUpdate
     //====================================================================================
     self.cancelUpdate = (event) => {

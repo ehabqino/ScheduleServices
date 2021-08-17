@@ -53,7 +53,7 @@ define(['ojs/ojModel'],
                     }
                 });
 
-            }//end getServicesList
+            }//end getUsersList
             //======================================================================
 
             addUser(user_name, user_password, user_display_name, user_type, user_active, notify) {
@@ -92,9 +92,9 @@ define(['ojs/ojModel'],
                         'Content-Type': 'application/json'
                     }
                 });
-            }//end addClass
+            }//end addUser
             //==================================================================================================================//
-            updateUser(id, user_name, user_password, user_type, user_display_name, user_active, notify) {
+            updateUser(id, user_name, user_password, user_display_name, user_type, user_active, notify) {
                 let url_api = this.serverUrl + "document/" + "services/" + id;
                 this.initializeModelCollection(url_api);
                 let userRow = new this.usersModelDef({
@@ -124,7 +124,7 @@ define(['ojs/ojModel'],
                     }
                 });
 
-            }//end update Class
+            }//end updateUser
             //==================================================================================================================//
             deleteUser(id, notify) {
                 //let url_api = this.serverUrl +"/"+ id + ".json";
@@ -152,7 +152,7 @@ define(['ojs/ojModel'],
                         'Content-Type': 'application/json'
                     }
                 });
-            }//end deleteService
+            }//end deleteUser
             //=====================================================================================
 
 

@@ -43,7 +43,30 @@
     </oj-dialog>
     <oj-dialog id="updateUserDialogId" dialog-title="Update User">
       <div slot="body">
-       
+        <oj-bind-text value="[[userid]]"></oj-bind-text>
+          <br><br>
+        <oj-input-text id="usernameupdate" value="{{userNameUpdate}}"
+        label-hint="User Name" label-edge="inside" readonly="true"></oj-input-text>
+        <br><br>
+        <oj-input-password id="userpassupdate" value="{{userPasswordUpdate}}" label-hint="password" 
+                            mask-icon="visible"></oj-input-password>
+        <br><br>
+        <oj-input-text id="userdisplayupdate" value="{{userDisplayUpdate}}"
+          label-hint="Display Name" label-edge="inside"></oj-input-text>
+          <br><br>
+          <oj-combobox-one id="combobox1update" value="{{userTypeUpdate}}"
+            label-hint="User Type" label-edge="inside"
+            class="oj-form-control-max-width-md">
+            <oj-option value="ADMIN">ADMIN</oj-option>
+            <oj-option value="USER">USER</oj-option>
+          </oj-combobox-one>
+          <br><br>
+          <oj-checkboxset id="checkboxSetAgreeIdupdate"
+                          label-hint="User Active"
+                          label-edge="inside"
+                          value="{{userActiveUpdate}}">
+          <oj-option value="Y">Active</oj-option>
+        </oj-checkboxset>
       </div>
       <div slot="footer">
         <oj-button id="okButton" on-oj-action="[[saveUpdate]]">Save
@@ -63,7 +86,7 @@
 
     <oj-dialog id="deleteUserDialogId" dialog-title="Delete User">
       <div slot="body">
-        
+        Are you sure you want to delete User (<span><oj-bind-text value="[[deleteUserName]]"></oj-bind-text></span>) ?
       </div>
       <div slot="footer">
         <oj-button id="okButton" on-oj-action="[[okDelete]]">OK
@@ -88,7 +111,9 @@
       src="css/images/add_24.png">
       </oj-avatar>
     </oj-button>
-    <oj-table id="Userstable" aria-label="Users Table" data="[[pagingDataProvider]]"
+    <oj-table id="Userstable" aria-label="Users Table" data="[[pagingDataProvider]]" 
+        on-selected-changed='{{selectedChangedListener}}'
+        selection-mode='{"row":"single"}'
       columns='[{"headerText": "User Name", "field": "user_name","headerClassName": "HeaderTable"},
                 {"headerText": "User Display Name", "field": "user_display_name","headerClassName": "HeaderTable"},
                 {"headerText": "User Type", "field": "user_type","headerClassName": "HeaderTable"},
