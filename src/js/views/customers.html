@@ -6,6 +6,15 @@
 <div class="oj-hybrid-padding">
   <h1>Customers Content Area</h1>
   <div>
-      To change the content of this section, you will make edits to the customers.html file located in the /js/views folder.
+    <oj-input-text id="filter" class="oj-form-control-max-width-md" label-hint="Filter" label-edge="inside"
+    placeholder="Type to filter" on-raw-value-changed="[[handleValueChanged]]" value="{{filter}}" clear-icon="always">
+    </oj-input-text>
+    <oj-table id='table' aria-label='Departments Table'  style=" width: 100%; "
+              data='[[dataprovider]]' 
+              scroll-policy='loadMoreOnScroll'
+              columns-default.sortable='disabled' 
+              columns='{{columnArray}}'
+              class='oj-bg-body'>
+    </oj-table>
   </div>
 </div>

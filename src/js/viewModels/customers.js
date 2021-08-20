@@ -1,54 +1,97 @@
-/**
- * @license
- * Copyright (c) 2014, 2021, Oracle and/or its affiliates.
- * Licensed under The Universal Permissive License (UPL), Version 1.0
- * as shown at https://oss.oracle.com/licenses/upl/
- * @ignore
- */
-/*
- * Your customer ViewModel code goes here
- */
-define(['accUtils'],
- function(accUtils) {
+
+define(["models/customers.model", "require", "knockout", "ojs/ojarraydataprovider",
+  "ojs/ojlistdataproviderview", "text!../departmentData.json", "ojs/ojdataprovider", "ojs/ojknockout", "ojs/ojtable", "ojs/ojinputtext"],
+  function (CustomersModel, require, ko, ArrayDataProvider, ListDataProviderView, deptData, ojdataprovider_1) {
     function CustomerViewModel() {
-      // Below are a set of the ViewModel methods invoked by the oj-module component.
-      // Please reference the oj-module jsDoc for additional information.
-
-      /**
-       * Optional ViewModel method invoked after the View is inserted into the
-       * document DOM.  The application can put logic that requires the DOM being
-       * attached here.
-       * This method might be called multiple times - after the View is created
-       * and inserted into the DOM and after the View is reconnected
-       * after being disconnected.
-       */
-      this.connected = () => {
-        accUtils.announce('Customers page loaded.', 'assertive');
-        document.title = "Customers";
-        // Implement further logic if needed
+      var self = this;
+      self.filter = ko.observable("");
+      self.baseDeptArray = JSON.parse(deptData);
+      self.generateDeptArray = (num) => {
+        const deptArray = [];
+        let count = 0;
+        for (let i = 0; i < num; i++) {
+          for (let j = 0; j < self.baseDeptArray.length; j++) {
+            deptArray[count] = {
+              DepartmentId: self.baseDeptArray[j].DepartmentId + count.toString(),
+              DepartmentName: self.baseDeptArray[j].DepartmentName + count.toString(),
+              LocationId: self.baseDeptArray[j].LocationId,
+              ManagerId: self.baseDeptArray[j].ManagerId,
+            };
+            count++;
+          }
+        }
+        return deptArray;
       };
-
-      /**
-       * Optional ViewModel method invoked after the View is disconnected from the DOM.
-       */
-      this.disconnected = () => {
-        // Implement if needed
+      self.deptArray = self.generateDeptArray(1000);
+      self.dataprovider = ko.computed(function () {
+        let filterCriterion = null;
+        if (self.filter() && self.filter() != "") {
+          filterCriterion = ojdataprovider_1.FilterFactory.getFilter({
+            filterDef: { text: self.filter() },
+          });
+        }
+        const arrayDataProvider = new ArrayDataProvider(self.deptArray, { keyAttributes: "DepartmentId" });
+        return new ListDataProviderView(arrayDataProvider, { filterCriterion: filterCriterion });
+      }, self);
+      self.handleValueChanged = () => {
+        self.filter(document.getElementById("filter").rawValue);
       };
-
-      /**
-       * Optional ViewModel method invoked after transition to the new View is complete.
-       * That includes any possible animation between the old and the new View.
-       */
-      this.transitionCompleted = () => {
-        // Implement if needed
+      self.highlightingCellRenderer = (context) => {
+        let field = null;
+        if (context.columnIndex === 0) {
+          field = "DepartmentId";
+        }
+        else if (context.columnIndex === 1) {
+          field = "DepartmentName";
+        }
+        else if (context.columnIndex === 2) {
+          field = "LocationId";
+        }
+        else if (context.columnIndex === 3) {
+          field = "ManagerId";
+        }
+        let data = context.row[field].toString();
+        const filterString = self.filter();
+        let textNode;
+        let spanNode = document.createElement("span");
+        if (filterString && filterString.length > 0) {
+          const index = data.toLowerCase().indexOf(filterString.toLowerCase());
+          if (index > -1) {
+            const highlightedSegment = data.substr(index, filterString.length);
+            if (index !== 0) {
+              textNode = document.createTextNode(data.substr(0, index));
+              spanNode.appendChild(textNode);
+            }
+            let bold = document.createElement("b");
+            textNode = document.createTextNode(highlightedSegment);
+            bold.appendChild(textNode);
+            spanNode.appendChild(bold);
+            if (index + filterString.length !== data.length) {
+              textNode = document.createTextNode(data.substr(index + filterString.length, data.length - 1));
+              spanNode.appendChild(textNode);
+            }
+          }
+          else {
+            textNode = document.createTextNode(data);
+            spanNode.appendChild(textNode);
+          }
+        }
+        else {
+          textNode = document.createTextNode(data);
+          spanNode.appendChild(textNode);
+        }
+        context.parentElement.appendChild(spanNode);
       };
-    }
+      self.columnArray = [
+        { headerText: "Department Id", renderer: self.highlightingCellRenderer },
+        { headerText: "Department Name", renderer: self.highlightingCellRenderer },
+        { headerText: "Location Id", renderer: self.highlightingCellRenderer },
+        { headerText: "Manager Id", renderer: self.highlightingCellRenderer },
+      ];
 
-    /*
-     * Returns an instance of the ViewModel providing one instance of the ViewModel. If needed,
-     * return a constructor for the ViewModel so that the ViewModel is constructed
-     * each time the view is displayed.
-     */
+
+    }//end CustomerViewModel
+    //##################################################  
     return CustomerViewModel;
   }
 );
