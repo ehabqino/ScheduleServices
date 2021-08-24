@@ -1,54 +1,85 @@
-/**
- * @license
- * Copyright (c) 2014, 2021, Oracle and/or its affiliates.
- * Licensed under The Universal Permissive License (UPL), Version 1.0
- * as shown at https://oss.oracle.com/licenses/upl/
- * @ignore
- */
-/*
- * Your incidents ViewModel code goes here
- */
-define(['accUtils'],
- function(accUtils) {
+
+define(["models/customers.model",
+  "models/services.model",
+  "require",
+  "exports",
+  "knockout",
+  "ojs/ojbootstrap",
+  "ojs/ojpagingdataproviderview",
+  "ojs/ojarraydataprovider",
+  "ojs/ojknockout",
+  "ojs/ojtable",
+  "ojs/ojpagingcontrol",
+  "ojs/ojbutton",
+  "ojs/ojdialog",
+  "ojs/ojmessages",
+  "ojs/ojavatar",
+  "JETUtils",
+  "ojs/ojselectcombobox",
+  "ojs/ojcheckboxset",],
+  function (
+    CustomersModel,
+    ServicesModel,
+    require,
+    exports,
+    ko,
+    ojbootstrap_1,
+    PagingDataProviderView,
+    ArrayDataProvider) {
     function SchedulerViewModel() {
-      // Below are a set of the ViewModel methods invoked by the oj-module component.
-      // Please reference the oj-module jsDoc for additional information.
+      var self = this;
+      //Status
+      self.statusValue = ko.observable("ACTIVE");
 
-      /**
-       * Optional ViewModel method invoked after the View is inserted into the
-       * document DOM.  The application can put logic that requires the DOM being
-       * attached here.
-       * This method might be called multiple times - after the View is created
-       * and inserted into the DOM and after the View is reconnected
-       * after being disconnected.
-       */
-      this.connected = () => {
-        accUtils.announce('Incidents page loaded.', 'assertive');
-        document.title = "Incidents";
-        // Implement further logic if needed
-      };
+      //Customers
+      self.selectedCustomer = ko.observable("ALL");
+      self.customers = ko.observableArray([]);
+      self.customerDataProvider = new ArrayDataProvider(self.customers, { keyAttributes: "customer_id", });
 
-      /**
-       * Optional ViewModel method invoked after the View is disconnected from the DOM.
-       */
-      this.disconnected = () => {
-        // Implement if needed
-      };
+      //Services
+      self.selectedService = ko.observable("ALL");
+      self.services = ko.observableArray([]);
+      self.serviceDataProvider = new ArrayDataProvider(self.services, { keyAttributes: "value" });
 
-      /**
-       * Optional ViewModel method invoked after transition to the new View is complete.
-       * That includes any possible animation between the old and the new View.
-       */
-      this.transitionCompleted = () => {
-        // Implement if needed
-      };
-    }
+      //Fill Combobox with Customers
+      CustomersModel.getCustomersList((sucess, data) => {
+        if (sucess) {
+          //console.log(data);
+          self.customers.push(ValueandLabel("All", "ALL"));
+          data.forEach(element => {
+            // console.log("Element : ", element.customer_id);
+            // console.log("Element Name : ", element.customer_name);
+            self.customers.push(ValueandLabel(element.customer_id, element.customer_name));
+            console.log(self.customers());
 
-    /*
-     * Returns an instance of the ViewModel providing one instance of the ViewModel. If needed,
-     * return a constructor for the ViewModel so that the ViewModel is constructed
-     * each time the view is displayed.
-     */
+          });
+          self.customers.valueHasMutated();
+        }
+      });
+
+      //Fill combobox with Services
+      ServicesModel.getServicesList((success, data) => {
+        if (success) {
+          //console.log("All Services Scheduler: ", data);
+
+          // this.serviceArray(data);
+          // this.serviceArray.valueHasMutated();
+          data.forEach(element => {
+
+          });
+        }
+      });
+
+      function ValueandLabel(value, label) {
+        return {
+          value: value,
+          label: label
+
+        }
+      }
+
+
+    }// end SchedulerViewModel
     return SchedulerViewModel;
   }
 );

@@ -1,11 +1,74 @@
-<!--
- Copyright (c) 2014, 2021, Oracle and/or its affiliates.
- Licensed under The Universal Permissive License (UPL), Version 1.0
- as shown at https://oss.oracle.com/licenses/upl/
- -->
+
 <div class="oj-hybrid-padding">
   <h1>Scheduler Content Area</h1>
-  <div>
-      To change the content of this section, you will make edits to the incidents.html file located in the /js/views folder.
+  <div class="oj-flex oj-flex-init"> <!-- Main Flex Container -->
+    <div class="oj-flex oj-flex-item oj-sm-12"> <!-- Filter Components-->
+      
+      <!-- Status -->
+      <div class="oj-flex-item oj-lg-2 oj-md-4 oj-sm-12"> 
+        <oj-combobox-one id="Statuscombobox" 
+            label-hint="Status" label-edge="inside" value="{{statusValue}}"
+            class="oj-form-control-max-width-md">
+            <oj-option value="ALL">ALL</oj-option>
+            <oj-option value="ACTIVE">ACTIVE</oj-option>
+            <oj-option value="CLOSED">CLOSED</oj-option>
+            <oj-option value="CANCELED">CANCELED</oj-option>
+          </oj-combobox-one>
+      </div>
+
+      <!-- Customer -->
+      <div class="oj-flex-item oj-lg-2 oj-md-4 oj-sm-12"> 
+            <oj-combobox-one id="Customercombobox" value="{{selectedCustomer}}" options="[[customerDataProvider]]"
+              label-hint="Customer" label-edge="inside"
+              class="oj-form-control-max-width-md">
+          </oj-combobox-one>
+      </div>
+
+      <!-- Service -->
+      <div class="oj-flex-item oj-lg-2 oj-md-4 oj-sm-12"> 
+        
+        <oj-combobox-one id="Servicecombobox" 
+            label-hint="Service" label-edge="inside"
+            class="oj-form-control-max-width-md">
+            <oj-option value="ADMIN">ADMIN</oj-option>
+            <oj-option value="USER">USER</oj-option>
+          </oj-combobox-one>
+
+      </div>
+
+      <!-- Date From/To -->
+      <div class="oj-flex oj-flex-item oj-lg-6 oj-md-12 oj-sm-12"> 
+        <!--From Date-->
+        <div class="oj-flex-item oj-lg-6 oj-md-6 oj-sm-12">
+          <oj-combobox-one id="FromDatecombobox" 
+            label-hint="From" label-edge="inside"
+            class="oj-form-control-max-width-md">
+            <oj-option value="ADMIN">ADMIN</oj-option>
+            <oj-option value="USER">USER</oj-option>
+          </oj-combobox-one>
+
+        </div>
+        <!--To Date-->
+        <div class="oj-flex-item oj-lg-6 oj-md-6 oj-sm-12"> 
+          
+          <oj-combobox-one id="ToDatecombobox"
+            label-hint="To" label-edge="inside"
+            class="oj-form-control-max-width-md">
+            <oj-option value="ADMIN">ADMIN</oj-option>
+            <oj-option value="USER">USER</oj-option>
+          </oj-combobox-one>
+
+        </div>
+
+      </div>
+    
+    </div> 
+
+    <div class="oj-flex-item oj-sm-12"> <!-- Table Components-->
+
+    </div> 
+
   </div>
+
+
 </div>

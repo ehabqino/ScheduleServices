@@ -64,7 +64,7 @@ define(['ojs/ojModel'],
             customer_phone	
             customer_website 
              */
-            addCustomer(customer_name, customer_email, customer_phone, customer_address, customer_website, customer_description,
+            addCustomer(customer_id, customer_name, customer_email, customer_phone, customer_address, customer_website, customer_description,
                 notify) {
 
                 // Collection = Table(Rows)
@@ -76,6 +76,7 @@ define(['ojs/ojModel'],
                 this.initializeModelCollection(url_api);
                 let customerRow = new this.customersModelDef({
                     "@class": "jet_customers",
+                    "customer_id": customer_id,
                     "customer_name": customer_name,
                     "customer_email": customer_email,
                     "customer_phone": customer_phone,
@@ -85,7 +86,7 @@ define(['ojs/ojModel'],
                 }, this.customer);
 
                 //AJAX (Take Time)
-                userRow.save(null, {
+                customerRow.save(null, {
                     type: "POST",
                     success: function (model, response, options) {
                         //notify(response.name);
@@ -104,13 +105,14 @@ define(['ojs/ojModel'],
                 });
             }//end addCustomer
             //==================================================================================================================//
-            updateCustomer(id, customer_name, customer_email, customer_phone, customer_address, customer_website, customer_description,
+            updateCustomer(id, customer_id, customer_name, customer_email, customer_phone, customer_address, customer_website, customer_description,
                 notify) {
                 let url_api = this.serverUrl + "document/" + "services/" + id;
                 this.initializeModelCollection(url_api);
                 let customerRow = new this.customersModelDef({
                     "@class": "jet_customers",
                     "@rid": id,
+                    "customer_id": customer_id,
                     "customer_name": customer_name,
                     "customer_email": customer_email,
                     "customer_phone": customer_phone,
