@@ -26,38 +26,44 @@
 
       <!-- Service -->
       <div class="oj-flex-item oj-lg-2 oj-md-4 oj-sm-12"> 
-        
-        <oj-combobox-one id="Servicecombobox" 
-            label-hint="Service" label-edge="inside"
-            class="oj-form-control-max-width-md">
-            <oj-option value="ADMIN">ADMIN</oj-option>
-            <oj-option value="USER">USER</oj-option>
-          </oj-combobox-one>
+        <oj-combobox-one id="Servicecombobox" value="{{selectedService}}" options="[[serviceDataProvider]]"
+        label-hint="Service" label-edge="inside"
+        class="oj-form-control-max-width-md">
+        </oj-combobox-one>
 
       </div>
 
+      &nbsp; &nbsp;
       <!-- Date From/To -->
-      <div class="oj-flex oj-flex-item oj-lg-6 oj-md-12 oj-sm-12"> 
+      <div class="oj-flex oj-flex-item oj-lg-5 oj-md-12 oj-sm-12"> 
         <!--From Date-->
-        <div class="oj-flex-item oj-lg-6 oj-md-6 oj-sm-12">
-          <oj-combobox-one id="FromDatecombobox" 
-            label-hint="From" label-edge="inside"
-            class="oj-form-control-max-width-md">
-            <oj-option value="ADMIN">ADMIN</oj-option>
-            <oj-option value="USER">USER</oj-option>
-          </oj-combobox-one>
-
+        <div class="oj-flex oj-flex-item oj-lg-6 oj-md-6 oj-sm-12">
+          <div class="oj-flex-item oj-sm-2">
+          <oj-label for="fromdate">From</oj-label>
+          </div>
+          <div class="oj-flex-item oj-sm-10">
+          <oj-input-date id="fromdate" value='{{fromvalue}}' style="max-width: 12rem;" autocomplete="off">
+          </oj-input-date>
+          </div> 
         </div>
         <!--To Date-->
-        <div class="oj-flex-item oj-lg-6 oj-md-6 oj-sm-12"> 
-          
-          <oj-combobox-one id="ToDatecombobox"
-            label-hint="To" label-edge="inside"
-            class="oj-form-control-max-width-md">
-            <oj-option value="ADMIN">ADMIN</oj-option>
-            <oj-option value="USER">USER</oj-option>
-          </oj-combobox-one>
-
+        <div class="oj-flex oj-flex-item oj-lg-6 oj-md-6 oj-sm-12"> 
+          <div class="oj-flex-item oj-sm-2">
+          <oj-label for="todate">To</oj-label>
+          </div>
+          <div class="oj-flex-item oj-sm-7">
+          <oj-input-date id="todate" value='{{tovalue}}' style="max-width: 12rem;" autocomplete="off">
+          </oj-input-date>
+          </div>
+          &nbsp;
+          <div class="oj-flex-item oj-sm-2">
+            <oj-button id="buttonOpener" on-oj-action="[[refresh]]" chroming="callToAction">
+              <oj-avatar id="jpg" role="img" aria-label="Avatar of Amy Bartlet"
+              size="xxs" initials="AB" slot="startIcon"
+              src="css/images/refresh_24.png">
+              </oj-avatar>
+            </oj-button>
+          </div>
         </div>
 
       </div>
@@ -65,6 +71,59 @@
     </div> 
 
     <div class="oj-flex-item oj-sm-12"> <!-- Table Components-->
+      <oj-table id='table' aria-label='Departments Table'
+                data='[[dataprovider]]'
+                dnd='{"reorder": {"columns": "enabled"}}'
+                scroll-policy='loadMoreOnScroll'
+                scroll-policy-options='{"fetchSize": 10}'
+                on-selected-changed='{{selectedChangedListener}}'
+                selection-mode='{"row":"single"}'
+                columns='[
+                          {"headerText": "Id", 
+                            "field": "schedule_id",
+                            "headerClassName": "HeaderTable",
+                            "resizable": "enabled"},
+                          {"headerText": "Customers", 
+                            "field": "schedule_customer",
+                            "headerClassName": "HeaderTable",
+                            "className": "oj-sm-only-hide",
+                            "resizable": "enabled"},
+                          {"headerText": "Service", 
+                            "field": "schedule_service",
+                            "headerClassName": "HeaderTable",
+                            "className": "oj-sm-only-hide",
+                            "resizable": "enabled"},
+                          {"headerText": "Status", 
+                            "field": "schedule_status",
+                            "headerClassName": "HeaderTable",
+                            "className": "oj-sm-only-hide",
+                            "resizable": "enabled"},
+                          {"headerText": "Schedule Date", 
+                            "field": "schedule_date",
+                            "headerClassName": "HeaderTable",
+                            "className": "oj-sm-only-hide",
+                            "resizable": "enabled"},
+                          {"headerText": "Description", 
+                            "field": "schedule_description",
+                            "headerClassName": "HeaderTable",
+                            "className": "oj-sm-only-hide",
+                            "resizable": "enabled"},
+                          {"headerText": "Added By", 
+                            "field": "schedule_added_by",
+                            "headerClassName": "HeaderTable",
+                            "className": "oj-sm-only-hide",
+                            "resizable": "enabled"},
+                          {"headerText": "Added Date", 
+                            "field": "schedule_added_date",
+                            "headerClassName": "HeaderTable",
+                            "className": "oj-sm-only-hide",
+                            "resizable": "enabled"}
+                          ]'
+                class='demo-table-container oj-bg-body'>
+                <template slot="cellTemplate" data-oj-as="cell">
+                  
+                </template>
+      </oj-table>
 
     </div> 
 
